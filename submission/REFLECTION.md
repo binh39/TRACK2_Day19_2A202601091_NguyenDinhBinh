@@ -14,5 +14,5 @@ Embedding model ảnh hưởng mạnh hơn việc tinh chỉnh RRF: hybrid tốt
 
 ## Bonus challenge
 
-- [ ]  Đã làm bonus
+- [x]  Đã làm bonus
 - [ ]  Pair work với: _<tên đồng đội nếu có>_
