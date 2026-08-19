@@ -2,12 +2,21 @@
 ## Two paths: lightweight (default, no Docker) and full Docker.
 
 VENV     := .venv
+ifeq ($(OS),Windows_NT)
+PY       := $(VENV)/Scripts/python.exe
+PIP      := $(VENV)/Scripts/pip.exe
+JUPYTER  := $(VENV)/Scripts/jupyter.exe
+JUPYTEXT := $(VENV)/Scripts/jupytext.exe
+UVICORN  := $(VENV)/Scripts/uvicorn.exe
+PYTEST   := $(VENV)/Scripts/pytest.exe
+else
 PY       := $(VENV)/bin/python
 PIP      := $(VENV)/bin/pip
 JUPYTER  := $(VENV)/bin/jupyter
 JUPYTEXT := $(VENV)/bin/jupytext
 UVICORN  := $(VENV)/bin/uvicorn
 PYTEST   := $(VENV)/bin/pytest
+endif
 
 .DEFAULT_GOAL := help
 
@@ -24,6 +33,8 @@ setup-lite: ## [lite] Create venv + install + seed corpus + smoke test
 
 verify-lite: ## [lite] 5-second smoke test (Qdrant memory + BM25 + Feast SQLite)
 	@$(PY) scripts/verify_lite.py
+
+verify: verify-lite ## [all] Alias for the default local verification
 
 seed: ## [both] (Re)generate data/corpus_vn.jsonl + data/golden_set.jsonl
 	@$(PY) scripts/seed_corpus.py
@@ -90,6 +101,6 @@ docker-down: ## [docker] Stop services (data persists)
 docker-clean: ## [docker] Stop AND wipe Qdrant + Redis + Postgres volumes
 	docker compose down -v
 
-.PHONY: help setup-lite verify-lite seed gen-advanced notebooks api lab benchmark test clean-lite \
+.PHONY: help setup-lite verify verify-lite seed gen-advanced notebooks api lab benchmark test clean-lite \
         setup-docker verify-docker docker-up docker-down docker-clean \
         runtime-check container-up container-down
