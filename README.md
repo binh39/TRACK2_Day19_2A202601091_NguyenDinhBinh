@@ -24,6 +24,21 @@ Build hybrid search API + Feast feature store hoàn chỉnh, đo Precision@10 v�
 
 ## Quick Start — Lite (recommended)
 
+### Windows PowerShell
+
+Windows users can run the equivalent setup without Bash or GNU Make:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+.\setup-windows.ps1
+```
+
+To reuse an existing environment, run `.\setup-windows.ps1 -SkipInstall`.
+Use `.venv\Scripts\python.exe`, `.venv\Scripts\jupyter.exe`, and
+`.venv\Scripts\uvicorn.exe` directly. The optional `NB3_QUERY_LIMIT` and
+`NB3_REPS` environment variables provide a shorter CPU smoke benchmark on
+Windows Lite; their defaults remain the full rubric benchmark.
+
 ```bash
 git clone https://github.com/<your-username>/Day19-Track2-VectorFeatureStore-Lab.git
 cd Day19-Track2-VectorFeatureStore-Lab

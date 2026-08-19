@@ -73,9 +73,15 @@ for h in body["hits"][:3]:
 
 # %%
 import json
+import os
 
 DATA = ROOT / "data"
 golden = [json.loads(l) for l in (DATA / "golden_set.jsonl").open(encoding="utf-8")]
+# Windows Lite can be CPU-bound on the first semantic queries. Keep the
+# rubric default (50 queries × 2 reps), while allowing a shorter local smoke
+# run via NB3_QUERY_LIMIT / NB3_REPS.
+golden = golden[:int(os.getenv("NB3_QUERY_LIMIT", str(len(golden))))]
+BENCH_REPS = int(os.getenv("NB3_REPS", "2"))
 
 
 def percentile(values: list[float], p: float) -> float:
@@ -105,7 +111,7 @@ def benchmark_mode(mode: str, reps: int = 2) -> dict[str, float]:
 print(f"  {'mode':10}  {'P50':>7}  {'P95':>7}  {'P99':>7}  {'P99(wall)':>9}")
 results = {}
 for mode in ("keyword", "semantic", "hybrid"):
-    res = benchmark_mode(mode)
+    res = benchmark_mode(mode, reps=BENCH_REPS)
     results[mode] = res
     print(f"  {mode:10}  {res['p50_server']:>5.1f}ms  {res['p95_server']:>5.1f}ms  "
           f"{res['p99_server']:>5.1f}ms  {res['p99_wall']:>7.1f}ms")
