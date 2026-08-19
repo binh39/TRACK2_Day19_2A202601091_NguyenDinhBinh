@@ -1,7 +1,7 @@
 # Reflection — Lab 19
 
-**Tên:** Nguyen Dinh Binh  
-**Cohort:** _<điền cohort>_  
+**Tên:** Nguyễn Đình Bình
+**Cohort:** _K3_
 **Path đã chạy:** lite (Windows)
 
 ## Câu hỏi
@@ -14,5 +14,5 @@ Embedding model ảnh hưởng mạnh hơn việc tinh chỉnh RRF: hybrid tốt
 
 ## Bonus challenge
 
-- [ ] Đã làm bonus
-- [ ] Pair work với: _<tên đồng đội nếu có>_
+- [ ]  Đã làm bonus
+- [ ]  Pair work với: _<tên đồng đội nếu có>_
